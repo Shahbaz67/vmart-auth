@@ -2,7 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MinValueValidator
 
+
 class Company(models.Model):
+    """
+    Company Model
+    """
     name = models.CharField(
         max_length=100, 
         help_text='company name',
@@ -23,6 +27,9 @@ class Company(models.Model):
     
 
 class CustomUserManager(BaseUserManager):
+    """
+    Custom User Manager to support for email as unique identifier
+    """
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
@@ -40,6 +47,9 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    """
+    Custom User that customizes the default user
+    """
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),

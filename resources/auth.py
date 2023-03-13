@@ -1,4 +1,3 @@
-from rest_framework import exceptions
 from .serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
@@ -8,7 +7,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 class CreateTokenView(ObtainAuthToken):
-    """Create a new auth token for user"""
+    """
+    Create a new auth token for existing user
+    """
     serializer_class = AuthTokenSerializer
 
     def post(self, request, *args, **kwargs):
@@ -25,6 +26,9 @@ class CreateTokenView(ObtainAuthToken):
 
  
 class CustomizedUserPermission(IsAuthenticated):
+    """
+    Custom permission to list all users and to create any new user without authentication
+    """
     def has_permission(self, request, view):
         if view.action == 'create':
             return True

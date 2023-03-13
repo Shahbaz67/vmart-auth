@@ -5,6 +5,9 @@ from django.contrib.auth.backends import BaseBackend
 
 
 class EmailBackend(BaseBackend):
+    """
+    Email backend to check password for authentication
+    """
     def authenticate(self, email=None, password=None, **kwargs):
         UserModel = get_user_model()
         try:
@@ -18,6 +21,9 @@ class EmailBackend(BaseBackend):
 
 
 class EmailTokenAuthentication(TokenAuthentication):
+    """
+    Custom TokenAuthentication based on email instead of username
+    """
     def authenticate_credentials(self, key):
         UserModel = get_user_model()
         try:

@@ -1,33 +1,30 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.password_validation import validate_password
-from django.core.exceptions import ValidationError
-from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.views import APIView
-from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from .models import Company, CustomUser
-from .serializers import CompanySerializer, CustomUserSerializer, AuthTokenSerializer, CustomUserRetrieveSerializer
+from .serializers import CompanySerializer, CustomUserSerializer, CustomUserRetrieveSerializer
 from .backends import EmailTokenAuthentication
 from .auth import CustomizedUserPermission
 
 
-User = get_user_model()
-
 class CompanyViewSet(viewsets.ModelViewSet):
+    """
+    Company Modelviewset
+    """
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     permission_classes = [permissions.AllowAny]
 
-    # def get_queryset(self):
-    #     return Company.objects.filter(user=self.request.user)
-
 
 class CustomUserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    """
+    Custom user ModelViewset
+    """
+    queryset = get_user_model().objects.all()
     serializer_class = CustomUserSerializer
     authentication_classes = [EmailTokenAuthentication]
     permission_classes = [CustomizedUserPermission]
@@ -53,6 +50,9 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     
 
 class LogoutView(APIView):
+    """
+    Logout view that deletes the authenticated user token
+    """
     permission_classes = [IsAuthenticated]
 
     def post(self, request):

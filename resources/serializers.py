@@ -5,12 +5,18 @@ from rest_framework import exceptions
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    """
+    Company serializer class
+    """
     class Meta:
         model = Company
         fields = '__all__'
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
+    """
+    Custom User serializer class
+    """
     class Meta:
         model = CustomUser
         fields = ['id', 'email', 'first_name', 'last_name']
@@ -18,6 +24,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
 
 class CustomUserRetrieveSerializer(serializers.ModelSerializer):
+    """
+    Custom User serializer class only for retrieve action
+    """
     class Meta:
         model = CustomUser
         exclude = ['is_active', 'is_staff', 'is_admin', 'groups', 'is_superuser', 'user_permissions']
@@ -25,6 +34,9 @@ class CustomUserRetrieveSerializer(serializers.ModelSerializer):
 
 
 class AuthTokenSerializer(serializers.Serializer):
+    """
+    Auth token serializer class for validation email and password when logging in
+    """
     email = serializers.EmailField()
     password = serializers.CharField(style={'input_type': 'password'})
 

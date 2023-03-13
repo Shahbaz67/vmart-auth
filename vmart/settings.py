@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure--6vd_%p5m0+(liybt#)t9@r6=^ls)m6hd#^vu#@xnvb5lym7_9
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'resources.CustomUser'
+AUTH_USER_MODEL = 'resources.CustomUser'   #using CustomUser
 
 
 # Application definition
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'vmart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR/'resources'/'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,7 +88,6 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -98,6 +97,7 @@ REST_FRAMEWORK = {
     ],
 }
 
+# DRF_AUTH_FIELD = 'email'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
